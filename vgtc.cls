@@ -217,10 +217,6 @@
 
   \hypersetup{
    pdfpagemode=UseNone,
-   pdftitle={\@title},
-   pdfauthor={\@author},
-   pdfsubject={VGTC Conference Paper},
-   pdfkeywords={\vgtc@keywords},
    pageanchor=true,
    plainpages=false,       % for problems with page referencing
    hypertexnames=false,    % for handling subfigures correctly
@@ -262,6 +258,19 @@
  }
 }
 %% end of code adapted from egpubl.cls
+
+\newcommand{\shortautor}[1]{
+  \gdef\@shortauthor{#1}
+}
+
+\newcommand{\setmetadata}{
+  \hypersetup{
+   pdftitle={\@title},
+   pdfauthor={\@shortauthor},
+   pdfsubject={VGTC Conference Paper},
+   pdfkeywords={\vgtc@keywords},
+  }
+}
 
 % Assume, for the moment, that we're preparing a 'cameraready' version.
 
