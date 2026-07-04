@@ -127,6 +127,14 @@
 
 \RequirePackage{ifpdf}%
 
+\IfPackageLoadedTF{tagpdf}{%
+  \ifXeTeX % XeLaTeX
+    \errmessage{Only compilation with pdfLaTeX and LuaLaTeX is allowed when PDF tagging is enabled.}%
+    \stop
+  \fi
+}{%
+}
+
 %% These few lines make a distinction between latex and pdflatex calls and they
 %% bring in essential packages for graphics and font handling.
 \ifpdf%
@@ -231,19 +239,27 @@
    pdfpagemode=UseNone,    % show just the page
    pdfstartview=Fit,       % defail page view is the whole page at once
    pdfborder={0 0 0},      % we don't want those silly boxes for links
-   breaklinks=true,        % allow breaking links
    colorlinks=true,        % color all links blue
    linkcolor=NavyBlue,
    urlcolor=NavyBlue,
    citecolor=NavyBlue,
-   anchorcolor=black,      % changing this colors te teaser caption using dvips
-   nesting=true,
    linktocpage,
    pdfdisplaydoctitle}
    \ifpdf%                    % if we use pdflatex
    \else%                     % else we use pure latex
     \renewcommand{\pdfbookmark}[3][]{}
    \fi
+
+   \IfPackageLoadedTF{tagpdf}{%
+      \ifLuaTeX % LuaLaTeX does not support some hypersetup parameters
+      \fi
+      }{%
+      \hypersetup{
+        breaklinks=true,        % allow breaking links
+        nesting=true,           % allow nesting of links
+        anchorcolor=black,      % changing this colors the teaser caption using dvips
+      }
+}
 
      %% it is recommended to use ``\cref{sec:bla}`` instead of ``Sec.~\ref{sec:bla}''
   %% the following lines load cleveref for consistent, style-dependent cross-references
@@ -355,6 +371,13 @@
 % ------------ package loading --------------
 
 \LoadClass{article}
+
+\IfPackageLoadedTF{tagpdf}{%
+  \ifLuaTeX % LuaLaTeX
+    \RequirePackage{unicode-math}
+  \fi
+  }{%
+}
 
 % ------------ main code --------------
 \newcommand{\vgtc@onlineid}{}
