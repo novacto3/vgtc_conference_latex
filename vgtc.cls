@@ -132,6 +132,7 @@
 \ifpdf%
   \ifLuaTeX % XeLaTeX and LuaLaTeX
     \RequirePackage[base]{babel}                % allow us to embed graphics files
+    \pdfvariable minorversion=7
   \else
     \pdfoutput=1\relax                   % create PDFs from pdfLaTeX
     \pdfcompresslevel=9                  % PDF Compression
@@ -657,17 +658,16 @@ Manuscript received xx xxx. 201x; accepted xx xxx. 201x. Date of Publication xx 
 	  \setlength{\abstractwidth}{\linewidth}%
     \addtolength{\abstractwidth}{-.66in}%
 	  \begin{minipage}{\abstractwidth}
-    #1%
-    
-    \ifXeTeX
-      \par\vspace{0.85\baselineskip}%
-      \refstepcounter{figure}%
-      {\scriptsize\sffamily Figure~\thefigure: #2\par}%
-    \else
-      \caption{#2}
-    \fi
-    \label{fig:teaser}
-
+      #1%
+      
+      \ifXeTeX
+        \par\vspace{0.85\baselineskip}%
+        \refstepcounter{figure}%
+        {\scriptsize\sffamily Figure~\thefigure: #2\par}%
+      \else
+        \caption{#2}
+      \fi
+      \label{fig:teaser}
 		\end{minipage}
 	  \setlength{\captionmargin}{0in}%
 	  }%
