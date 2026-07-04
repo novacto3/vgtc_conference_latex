@@ -259,19 +259,6 @@
 }
 %% end of code adapted from egpubl.cls
 
-\newcommand{\shortautor}[1]{
-  \gdef\@shortauthor{#1}
-}
-
-\newcommand{\setmetadata}{
-  \hypersetup{
-   pdftitle={\@title},
-   pdfauthor={\@shortauthor},
-   pdfsubject={VGTC Conference Paper},
-   pdfkeywords={\vgtc@keywords},
-  }
-}
-
 % Assume, for the moment, that we're preparing a 'cameraready' version.
 
 \ExecuteOptions{electronic,cameraready}
@@ -983,6 +970,19 @@ Manuscript received xx xxx. 201x; accepted xx xxx. 201x. Date of Publication xx 
            \vspace*{\fill}
        \end{center}%
    \end{titlepage}%
+}
+
+\newcommand{\shortautor}[1]{
+  \gdef\@shortauthor{#1}
+}
+
+\newcommand{\setmetadata}{
+  \hypersetup{
+   pdftitle={\@title},
+   pdfauthor={\@shortauthor},
+   pdfsubject={VGTC Conference Paper},
+   pdfkeywords={\vgtc@keywords},
+  }
 }
 
 \AtEndDocument{\ifvgtc@cover \vgtc@coverpage \fi}
